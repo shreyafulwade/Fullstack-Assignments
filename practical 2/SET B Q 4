@@ -1,0 +1,29 @@
+# Q4. Create a Flask application with a login form and display "Login Successful" when valid 
+# details are submitted.
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def login():
+    return '''
+    <form action="/login" method="post">
+        <h2>Login Form</h2>
+        Username: <input type="text" name="username"><br><br>
+        Password: <input type="password" name="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+    '''
+
+@app.route('/login', methods=['POST'])
+def check_login():
+    username = request.form['username']
+    password = request.form['password']
+
+    if username == 'admin' and password == '1234':
+        return "Login Successful"
+    else:
+        return "Invalid Username or Password"
+
+if __name__ == '__main__':
+    app.run(debug=True)

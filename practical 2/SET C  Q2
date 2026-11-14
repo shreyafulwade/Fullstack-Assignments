@@ -1,0 +1,31 @@
+# Q3. Create a Flask application for a simple library search system that accepts a book name 
+# and displays the search result.
+
+from flask import Flask, request
+
+app = Flask(__name__)
+
+books = ['Python', 'Java', 'C Programming', 'HTML']
+
+@app.route('/')
+def home():
+    return '''
+    <h2>Library Search System</h2>
+    <form action="/search" method="post">
+        Enter Book Name:
+        <input type="text" name="book">
+        <input type="submit" value="Search">
+    </form>
+    '''
+
+@app.route('/search', methods=['POST'])
+def search():
+    book = request.form['book']
+
+    if book in books:
+        return "Book Available: " + book
+    else:
+        return "Book Not Available"
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,31 @@
+# Create a Flask application with a search form that accepts a student's name and displays 
+# the search result.
+
+from flask import Flask, request
+
+app = Flask(__name__)
+
+students = ['Gauri', 'Shreya', 'Priya', 'Sneha']
+
+@app.route('/')
+def home():
+    return '''
+    <h2>Student Search Form</h2>
+    <form action="/search" method="post">
+        Enter Student Name:
+        <input type="text" name="name">
+        <input type="submit" value="Search">
+    </form>
+    '''
+
+@app.route('/search', methods=['POST'])
+def search():
+    name = request.form['name']
+
+    if name in students:
+        return "Student Found: " + name
+    else:
+        return "Student Not Found"
+
+if __name__ == '__main__':
+    app.run(debug=True)
